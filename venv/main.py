@@ -35,6 +35,7 @@ loadImg = pygame.image.load('../img/load.gif')
 startImg_over = pygame.image.load('../img/start_over.gif')
 loadImg_over = pygame.image.load('../img/load_over.gif')
 background_image = pygame.image.load('../img/mainBg.gif')
+programIcon = pygame.image.load('../img/icon.png')
 
 def mainmenu():
     while True:
@@ -46,6 +47,7 @@ def mainmenu():
 
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
+            pygame.display.set_icon(programIcon)
 
             startBtn = Button(startImg, 415, 410, 195, 35, startImg_over, 415, 410, starter)
             loadBtn = Button(loadImg, 415, 460, 195, 35, loadImg_over, 415, 460, loader)
