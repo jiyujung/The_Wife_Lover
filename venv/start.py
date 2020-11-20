@@ -21,7 +21,7 @@ class Button:
         else:
             screen.blit(img_in, (x, y))
 
-class main():
+def main():
     # 배경 이미지 불러오기
     background_image = pygame.image.load('../img/TutorialBg.png')
 
