@@ -8,6 +8,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 750
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
+pygame.key.set_repeat(1, 1)
 
 # 배경 이미지 불러오기
 background_image = pygame.image.load('../img/TutorialBg.png')
@@ -21,8 +22,8 @@ character_jh_big = pygame.transform.scale(character_jh, (320, 424))
 character_wife_big = pygame.transform.scale(character_wife, (320, 424))
 
 # 글씨체 및 글씨 크기
-font1 = pygame.font.SysFont('malgungothic', 30)
-font2 = pygame.font.SysFont('malgungothic', 20)
+font1 = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+font2 = pygame.font.Font('NotoSansCJKkr-Medium.otf', 20)
 
 # next 이미지
 nextImg = pygame.image.load("../img/next.png")
@@ -46,11 +47,6 @@ def main():
 
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
@@ -60,17 +56,20 @@ def main():
             screen.blit(text2, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next1)
             pygame.display.update()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE :
+                    next1()
+                    pygame.display.update()
 
 def next1():
     text3 = font1.render("정훈쌤", True, (255, 255, 255))
     text4 = font2.render("이 겨울에 수박이 먹고 싶다고...??", True, (255, 255, 255))
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
@@ -80,6 +79,13 @@ def next1():
             screen.blit(text4, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next2)
             pygame.display.update()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE:
+                    next2()
 
 def next2():
     text5 = font1.render("와이프", True, (255, 255, 255))
@@ -100,6 +106,14 @@ def next2():
             screen.blit(text6, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next3)
             pygame.display.update()
+            event = pygame.event.poll()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE :
+                    next3()
 
 def next3():
     text7 = font1.render("정훈쌤", True, (255, 255, 255))
