@@ -30,7 +30,7 @@ nextImg = pygame.image.load("../img/next.png")
 nextImg_over = pygame.image.load("../img/next_over.png")
 
 class Button:
-    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
+    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action=None):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
         if x + width > mouse[0] > x and y + height > mouse[1] > y:
@@ -40,6 +40,24 @@ class Button:
                 action()
         else:
             screen.blit(img_in, (x, y))
+
+class Background(pygame.sprite.Sprite):
+    def __init__(self, number, *args):
+        self.image = pygame.image.load('../img/LoadBg.png').convert()
+        self.rect = self.image.get_rect()
+        self._layer = -10
+        pygame.sprite.Sprite.__init__(self, *args)
+        self.moved = 0
+        self.number = number
+        self.rect.x = self.rect.width * self.number
+
+    def update(self):
+        self.rect.move_ip(-1, 0)
+        self.moved += 1
+
+        if self.moved >= self.rect.width:
+            self.rect.x = self.rect.width * self.number
+            self.moved = 0
 
 def main():
     text1 = font1.render("와이프", True, (255, 255, 255))
@@ -54,6 +72,7 @@ def main():
             screen.blit(character_wife_big, (0, 326))
             screen.blit(text1, (320, 590))
             screen.blit(text2, (320, 640))
+            # backBtn = Button(nextImg, 10, 10, 16, 16, nextImg_over, 10, 10, back)
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next1)
             pygame.display.update()
             if event.type == pygame.QUIT:
@@ -86,6 +105,7 @@ def next1():
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE:
                     next2()
+
 
 def next2():
     text5 = font1.render("와이프", True, (255, 255, 255))
@@ -132,5 +152,22 @@ def next3():
             screen.blit(character_wife_small, (0, 238))
             screen.blit(text7, (320, 590))
             screen.blit(text8, (320, 640))
-            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, None)
+            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, play)
             pygame.display.update()
+
+def play():
+    group = pygame.sprite.LayeredUpdates()
+    Background(0, group)
+    Background(1, group)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
+
+        screen.fill((0, 0, 0))
+        group.update()
+        group.draw(screen)
+        pygame.display.update()
+        clock.tick(60)
