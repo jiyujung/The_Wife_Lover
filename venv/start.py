@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import game
 
 pygame.init()
 
@@ -41,30 +42,16 @@ class Button:
         else:
             screen.blit(img_in, (x, y))
 
-class Background(pygame.sprite.Sprite):
-    def __init__(self, number, *args):
-        self.image = pygame.image.load('../img/LoadBg.png').convert()
-        self.rect = self.image.get_rect()
-        self._layer = -10
-        pygame.sprite.Sprite.__init__(self, *args)
-        self.moved = 0
-        self.number = number
-        self.rect.x = self.rect.width * self.number
-
-    def update(self):
-        self.rect.move_ip(-1, 0)
-        self.moved += 1
-
-        if self.moved >= self.rect.width:
-            self.rect.x = self.rect.width * self.number
-            self.moved = 0
-
 def main():
     text1 = font1.render("와이프", True, (255, 255, 255))
     text2 = font2.render("수박 화채, 수박 주스, 수박바.... 다 먹고 싶은데 어떡하지?", True, (255, 255, 255))
 
     while True:
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
@@ -75,20 +62,17 @@ def main():
             # backBtn = Button(nextImg, 10, 10, 16, 16, nextImg_over, 10, 10, back)
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next1)
             pygame.display.update()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE :
-                    next1()
-                    pygame.display.update()
 
 def next1():
     text3 = font1.render("정훈쌤", True, (255, 255, 255))
     text4 = font2.render("이 겨울에 수박이 먹고 싶다고...??", True, (255, 255, 255))
 
     while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
@@ -98,14 +82,6 @@ def next1():
             screen.blit(text4, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next2)
             pygame.display.update()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE:
-                    next2()
-
 
 def next2():
     text5 = font1.render("와이프", True, (255, 255, 255))
@@ -127,13 +103,6 @@ def next2():
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next3)
             pygame.display.update()
             event = pygame.event.poll()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_SPACE :
-                    next3()
 
 def next3():
     text7 = font1.render("정훈쌤", True, (255, 255, 255))
@@ -152,22 +121,9 @@ def next3():
             screen.blit(character_wife_small, (0, 238))
             screen.blit(text7, (320, 590))
             screen.blit(text8, (320, 640))
-            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, play)
+            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, gamer)
             pygame.display.update()
+            event = pygame.event.poll()
 
-def play():
-    group = pygame.sprite.LayeredUpdates()
-    Background(0, group)
-    Background(1, group)
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-
-        screen.fill((0, 0, 0))
-        group.update()
-        group.draw(screen)
-        pygame.display.update()
-        clock.tick(60)
+def gamer():
+    game.play()
