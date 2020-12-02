@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import game
 
 pygame.init()
 
@@ -8,6 +9,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 750
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
+pygame.key.set_repeat(1, 1)
 
 # 배경 이미지 불러오기
 background_image = pygame.image.load('../img/TutorialBg.png')
@@ -21,8 +23,8 @@ character_jh_big = pygame.transform.scale(character_jh, (320, 424))
 character_wife_big = pygame.transform.scale(character_wife, (320, 424))
 
 # 글씨체 및 글씨 크기
-font1 = pygame.font.SysFont('malgungothic', 30)
-font2 = pygame.font.SysFont('malgungothic', 20)
+font1 = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+font2 = pygame.font.Font('NotoSansCJKkr-Medium.otf', 20)
 
 # next 이미지
 nextImg = pygame.image.load("../img/next.png")
@@ -40,24 +42,6 @@ class Button:
         else:
             screen.blit(img_in, (x, y))
 
-class Background(pygame.sprite.Sprite):
-    def __init__(self, number, *args):
-        self.image = pygame.image.load('../img/LoadBg.png').convert()
-        self.rect = self.image.get_rect()
-        self._layer = -10
-        pygame.sprite.Sprite.__init__(self, *args)
-        self.moved = 0
-        self.number = number
-        self.rect.x = self.rect.width * self.number
-
-    def update(self):
-        self.rect.move_ip(-1, 0)
-        self.moved += 1
-
-        if self.moved >= self.rect.width:
-            self.rect.x = self.rect.width * self.number
-            self.moved = 0
-
 def main():
     text1 = font1.render("와이프", True, (255, 255, 255))
     text2 = font2.render("수박 화채, 수박 주스, 수박바.... 다 먹고 싶은데 어떡하지?", True, (255, 255, 255))
@@ -68,7 +52,6 @@ def main():
                 pygame.quit()
                 sys.exit()
                 break
-
             screen.blit(background_image, (0, 0))
             event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
@@ -100,7 +83,6 @@ def next1():
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next2)
             pygame.display.update()
 
-
 def next2():
     text5 = font1.render("와이프", True, (255, 255, 255))
     text6 = font2.render("어... 너무 먹고 싶어", True, (255, 255, 255))
@@ -120,6 +102,7 @@ def next2():
             screen.blit(text6, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next3)
             pygame.display.update()
+            event = pygame.event.poll()
 
 def next3():
     text7 = font1.render("정훈쌤", True, (255, 255, 255))
@@ -138,22 +121,9 @@ def next3():
             screen.blit(character_wife_small, (0, 238))
             screen.blit(text7, (320, 590))
             screen.blit(text8, (320, 640))
-            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, play)
+            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, gamer)
             pygame.display.update()
+            event = pygame.event.poll()
 
-def play():
-    group = pygame.sprite.LayeredUpdates()
-    Background(0, group)
-    Background(1, group)
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-                break
-
-        screen.fill((0, 0, 0))
-        group.update()
-        group.draw(screen)
-        pygame.display.update()
-        clock.tick(60)
+def gamer():
+    game.play()

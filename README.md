@@ -15,7 +15,7 @@ Pygame 라이브러리를 이용하여 만든 픽셀 게임입니다.
 ## Prerequisites / 선행 조건
 
  - Python 3.8 
- 
+ - Pygame
  
 ## License / 라이센스
 
