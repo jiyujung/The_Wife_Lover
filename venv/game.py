@@ -17,7 +17,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
 
     def __init__(self, position):
         super(AnimatedSprite, self).__init__()
-        size = (60, 140)
+        size = (90, 210)
         images = []
         images.append(pygame.image.load('../img/jh_run1.png'))
         images.append(pygame.image.load('../img/jh_run2.png'))
@@ -32,7 +32,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.images = [pygame.transform.scale(image, size) for image in images]
         self.index = 0
         self.image = images[self.index]
-        self.position = 200, 520
+        self.position = 200, 530
         self.rect = self.image.get_rect()
         self.rect.center = self.position
         self.running = 2
@@ -44,8 +44,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
 
     def afterSlide(self):
         self.image = pygame.image.load('../img/jh_slide.png')
-        self.image = pygame.transform.scale(self.image, (60, 140))
-        self.position = 200, 520
+        self.image = pygame.transform.scale(self.image, (90, 210))
+        self.position = 200, 530
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
@@ -55,7 +55,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.position = self.position[0], self.position[1] - self.running
             self.rect = self.image.get_rect()
             self.rect.center = self.position
-            if self.position[1] == 510 or self.position[1] == 530:
+            if self.position[1] == 520 or self.position[1] == 540:
                 self.running = -self.running
             # print(self.running)
 
@@ -64,18 +64,18 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.position = self.position[0], self.position[1] - self.jumpingV
             self.rect = self.image.get_rect()
             self.rect.center = self.position
-            if 270 <= self.position[1] <= 290:
+            if 280 <= self.position[1] <= 300:
                 self.jumpingV = - self.jumpingV
-            if self.position[1] >= 520:
-                self.position = self.position[0], 520
+            if self.position[1] >= 530:
+                self.position = self.position[0], 530
                 self.jumpingV = 20
                 self.jumping = False
 
     def slide(self):
         if self.slideCheck:
             self.image = pygame.image.load('../img/jh_slide.png')
-            self.image = pygame.transform.scale(self.image, (135, 60))
-            self.position = self.position[0], 570
+            self.image = pygame.transform.scale(self.image, (205, 90))  #135 60 #60 140     #90 210
+            self.position = self.position[0], 600
             self.rect = self.image.get_rect()
             self.rect.center = self.position
 
@@ -109,7 +109,7 @@ class Background(pygame.sprite.Sprite):
             self.rect.x = self.rect.width * self.number
             self.moved = 0
 
-player = AnimatedSprite(position=(200, 520))
+player = AnimatedSprite(position=(200, 530))
 all_sprites = pygame.sprite.Group(player)
 obstacles_bottom = []
 obstacles_top = []
@@ -147,3 +147,5 @@ def play():
         pygame.display.update()
 
         clock.tick(80)
+
+play()
