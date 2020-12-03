@@ -93,7 +93,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, number, *args):
-        self.image = pygame.image.load('../img/LoadBg.png').convert()
+        self.image = pygame.image.load('../img/stage1_bg.png').convert()
         self.rect = self.image.get_rect()
         self._layer = -10
         pygame.sprite.Sprite.__init__(self, *args)
@@ -147,5 +147,3 @@ def play():
         pygame.display.update()
 
         clock.tick(80)
-
-play()
