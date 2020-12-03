@@ -11,6 +11,22 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 bgImg = pygame.image.load('../img/miniGame1Bg.png')
 barImg = pygame.image.load('../img/barImage.png')
+NoneImg = pygame.image.load('../img/NoneImg.png')
+BadImg = pygame.image.load('../img/BadImg.png')
+GoodImg = pygame.image.load('../img/GoodImg.png')
+PerfectImg = pygame.image.load('../img/PerfectImg.png')
+
+class Button:
+    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if x + width > mouse[0] > x and y + height > mouse[1] > y:
+            screen.blit(img_act, (x_act, y_act))
+            if click[0] and action != None:
+                time.sleep(1)
+                action()
+        else:
+            screen.blit(img_in, (x, y))
 
 class ArrowSprite(pygame.sprite.Sprite):
     def __init__(self, position):
@@ -22,23 +38,31 @@ class ArrowSprite(pygame.sprite.Sprite):
         self.direction = 0
         self.moving = True
         self.pressedSpace = False
+        self.result = ""
 
     def spaceAction(self):
         if self.pressedSpace:
             if 141 < self.x < 270:
                 self.moving = False
+                self.result = "None"
             elif 270 <= self.x < 380:
                 self.moving = False
+                self.result = "Bad"
             elif 380 <= self.x < 480:
                 self.moving = False
+                self.result = "Good"
             elif 480 <= self.x < 525:
                 self.moving = False
+                self.result = "Perfect"
             elif 525 <= self.x < 620:
                 self.moving = False
+                self.result = "Good"
             elif 620 <= self.x < 735:
                 self.moving = False
+                self.result = "Bad"
             elif 735 <= self.x < 821:
                 self.moving = False
+                self.result = "None"
 
     def update(self):
         self.spaceAction()
@@ -78,6 +102,16 @@ def play():
 
         arrow_group.update()
         arrow_group.draw(screen)
+        if arrow.result == "":
+            pass
+        elif arrow.result == "None":
+            screen.blit(NoneImg, (0, 0))
+        elif arrow.result == "Bad":
+            screen.blit(BadImg, (0, 0))
+        elif arrow.result == "Good":
+            screen.blit(GoodImg, (0, 0))
+        elif arrow.result == "Perfect":
+            screen.blit(PerfectImg, (0, 0))
 
         pygame.display.update()
         clock.tick(FPS)
