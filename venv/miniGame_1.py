@@ -18,6 +18,8 @@ PerfectImg = pygame.image.load('../img/PerfectImg.png')
 
 INFO1_MINI = pygame.image.load('../img/stage1-mini.png')
 INFO1_MINI.convert()
+INFO1_HELP = pygame.image.load('../img/minigame_help.png')
+INFO1_HELP.convert()
 
 class Button:
     def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
@@ -88,9 +90,10 @@ arrow_group = pygame.sprite.RenderPlain(arrow)
 
 def play():
     i = 1
+    j = 1
     alphaBoo = True
+    alphaBoo2 = True
     while True:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -100,7 +103,6 @@ def play():
                 if event.key == pygame.K_DOWN:
                     arrow.pressedSpace = True
 
-
         event = pygame.event.poll()
 
         screen.blit(bgImg, (0, 0))
@@ -108,15 +110,6 @@ def play():
 
         arrow_group.update()
         arrow_group.draw(screen)
-
-        if alphaBoo:
-            INFO1_MINI.set_alpha(i)
-            screen.blit(INFO1_MINI, (0, 0))
-            pygame.time.delay(20)
-            i += 20
-            if i == 501:
-                i = 0
-                alphaBoo = False
 
         if arrow.result == "":
             pass
@@ -129,5 +122,26 @@ def play():
         elif arrow.result == "Perfect":
             screen.blit(PerfectImg, (0, 0))
 
+        if alphaBoo:
+            INFO1_MINI.set_alpha(i)
+            screen.blit(INFO1_MINI, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 501:
+                i = 0
+                alphaBoo = False
+
+        if alphaBoo == False:
+            if alphaBoo2:
+                INFO1_HELP.set_alpha(j)
+                screen.blit(INFO1_HELP, (0, 0))
+                pygame.time.delay(20)
+                j += 20
+                if j == 501:
+                    j = 0
+                    alphaBoo2 = False
+
         pygame.display.update()
         clock.tick(FPS)
+
+# play()
