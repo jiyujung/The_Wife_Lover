@@ -3,9 +3,11 @@ import os
 import random
 import sys
 import sqlite3
+import time
 import miniGame_1
 
 conn = sqlite3.connect("load.db")
+cur = conn.cursor()
 
 pygame.init()
 
@@ -182,6 +184,21 @@ class Umbrella(Obstacle):
         SCREEN.blit(self.image[0], self.rect)
         self.index += 1
 
+def saver1_1():
+    cur.execute('UPDATE load set BigStage = 1, SmallStage = 1')
+    conn.commit()
+
+def saver1_2():
+    cur.execute('UPDATE load set BigStage = 1, SmallStage = 2')
+    conn.commit()
+
+def saver1_3():
+    cur.execute('UPDATE load set BigStage = 1, SmallStage = 3')
+    conn.commit()
+
+def saver1_4():
+    cur.execute('UPDATE load set BigStage = 1, SmallStage = 4')
+    conn.commit()
 
 def main1_1():
     global game_speed, x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg, points, obstacles
@@ -230,9 +247,6 @@ def main1_1():
         x_pos_ground -= game_speed
         x_pos_bg -= game_speed
 
-    def saver():
-        pass
-
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -243,7 +257,6 @@ def main1_1():
         background()
         SCREEN.blit(LOGO1_1, (600, 20))
         SCREEN.blit(STATUS1_1, (20, 20))
-        pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 900, 20, saver)
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
@@ -285,6 +298,7 @@ def play1_1(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
@@ -425,6 +439,7 @@ def play1_2(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
+            pauseBtn_2 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_2)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
@@ -565,6 +580,7 @@ def play1_3(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
+            pauseBtn_3 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_3)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
@@ -705,6 +721,7 @@ def play1_4(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
+            pauseBtn_4 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_4)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
