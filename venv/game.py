@@ -2,6 +2,9 @@ import pygame
 import os
 import random
 import sys
+import sqlite3
+
+conn = sqlite3.connect("load.db")
 
 pygame.init()
 
@@ -31,8 +34,21 @@ BG = pygame.image.load('../img/stage1_bg.png')
 BG2 = pygame.image.load('../img/stage2_bg.png')
 LOGO = pygame.image.load('../img/stage1_logo.png')
 LOGO2 = pygame.image.load('../img/stage2_logo.png')
+ringImg = pygame.image.load('../img/ring.png')
 
 STATUS = pygame.image.load('../img/Status.png')
+
+class Button:
+    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if x + width > mouse[0] > x and y + height > mouse[1] > y:
+            SCREEN.blit(img_act, (x_act, y_act))
+            if click[0] and action != None:
+                time.sleep(1)
+                action()
+        else:
+            SCREEN.blit(img_in, (x, y))
 
 class Jh:
     X_POS = 80
@@ -197,6 +213,9 @@ def main():
         x_pos_ground -= game_speed
         x_pos_bg -= game_speed
 
+    def saver():
+        pass
+
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -207,6 +226,7 @@ def main():
         background()
         SCREEN.blit(LOGO, (600, 20))
         SCREEN.blit(STATUS, (20, 20))
+        pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 900, 20, saver)
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
