@@ -28,7 +28,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
 def starter():
-    cur.execute('INSERT INTO load VALUES (0, 0)')
+    cur.execute('UPDATE load set BigStage = 0, SmallStage = 0')
+    conn.commit()
     conn.close()
     start.main()
 
@@ -43,11 +44,13 @@ def loader_2(b, s):
     if b == 0 and s == 0:
         start.main()
     elif b == 1 and s == 1:
-        game.play1_1()
+        game.play1_1(0)
     elif b == 1 and s == 2:
-        game.play1_2()
+        game.play1_2(0)
     elif b == 1 and s == 3:
-        game.play1_3()
+        game.play1_3(0)
+    elif b == 1 and s == 4:
+        game.play1_4(0)
     else:
         print("DB error")
 
