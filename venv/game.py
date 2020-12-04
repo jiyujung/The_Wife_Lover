@@ -31,14 +31,17 @@ EYE = [pygame.image.load('../img/Eye.png')]
 GROUND1_1 = pygame.image.load('../img/stage1_1_ground.png')
 GROUND1_2 = pygame.image.load('../img/stage1_2_ground.png')
 GROUND1_3 = pygame.image.load('../img/stage1_3_ground.png')
+GROUND1_4 = pygame.image.load('../img/stage1_4_ground.png')
 
 BG1_1 = pygame.image.load('../img/stage1_1_bg.png')
 BG1_2 = pygame.image.load('../img/stage1_2_bg.png')
 BG1_3 = pygame.image.load('../img/stage1_3_bg.png')
+BG1_4 = pygame.image.load('../img/stage1_4_bg.png')
 
 LOGO1_1 = pygame.image.load('../img/stage1_1_logo.png')
 LOGO1_2 = pygame.image.load('../img/stage1_2_logo.png')
 LOGO1_3 = pygame.image.load('../img/stage1_3_logo.png')
+LOGO1_4 = pygame.image.load('../img/stage1_4_logo.png')
 
 STATUS1_1 = pygame.image.load('../img/Status1_1.png')
 STATUS1_2 = pygame.image.load('../img/Status1_2.png')
@@ -231,7 +234,7 @@ def main1_1():
             if player.jh_rect.colliderect(obstacle.rect):
                 pygame.time.delay(1000)
                 death_count += 1
-                play(death_count)
+                play1_1(death_count)
 
         player.draw(SCREEN)
         userInput = pygame.key.get_pressed()
@@ -465,8 +468,8 @@ def main1_3():
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
 
-        if points == 500:
-            play1_3(death_count=0)
+        if points == 100:
+            play1_4(death_count=0)
 
     def background():
         global x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg
@@ -551,4 +554,144 @@ def play1_3(death_count):
             if event.type == pygame.KEYDOWN:
                 main1_3()
 
-# menu(death_count=0)
+class Wine(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 575
+
+
+class Cart(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 530
+
+
+class Eye(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 500
+        self.index = 0
+
+    def draw(self, SCREEN):
+        if self.index >= 9:
+            self.index = 0
+        SCREEN.blit(self.image[0], self.rect)
+        self.index += 1
+
+
+def main1_4():
+    global game_speed, x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg, points, obstacles
+    run = True
+    clock = pygame.time.Clock()
+    player = Jh()
+    game_speed = 20
+    x_pos_ground = 0
+    y_pos_ground = 380
+    x_pos_bg = 0
+    y_pos_bg = 0
+    points = 0
+    font = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
+    obstacles = []
+    death_count = 0
+
+    def score():
+        global points, game_speed
+        points += 1
+        if points % 100 == 0:
+            game_speed += 1
+
+        text = font.render("Points: " + str(points), True, (0, 0, 0))
+        textRect = text.get_rect()
+        textRect.center = (900, 40)
+        # SCREEN.blit(text, textRect)
+
+        if points == 500:
+            play1_4(death_count=0)
+
+    def background():
+        global x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg
+        y_pos_ground = 645
+        y_pos_bg = 0
+        image_width = GROUND1_4.get_width()
+        SCREEN.blit(BG1_4, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG1_4, (image_width + x_pos_bg, y_pos_bg))
+        SCREEN.blit(GROUND1_4, (x_pos_ground, y_pos_ground))
+        SCREEN.blit(GROUND1_4, (image_width + x_pos_ground, y_pos_ground))
+        if x_pos_bg <= -image_width:
+            SCREEN.blit(BG1_4, (image_width + x_pos_bg, y_pos_bg))
+            x_pos_bg = 0
+        if x_pos_ground <= -image_width:
+            SCREEN.blit(GROUND1_4, (image_width + x_pos_ground, y_pos_ground))
+            x_pos_ground = 0
+        x_pos_ground -= game_speed
+        x_pos_bg -= game_speed
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+                break
+        background()
+        SCREEN.blit(LOGO1_4, (600, 20))
+        SCREEN.blit(STATUS1_2, (20, 20))
+
+        if len(obstacles) == 0:
+            if random.randint(0, 2) == 0:
+                obstacles.append(Wine(WINE))
+            elif random.randint(0, 2) == 1:
+                obstacles.append(Cart(CART))
+            elif random.randint(0, 2) == 2:
+                obstacles.append(Eye(EYE))
+
+        for obstacle in obstacles:
+            obstacle.draw(SCREEN)
+            obstacle.update()
+            if player.jh_rect.colliderect(obstacle.rect):
+                pygame.time.delay(1000)
+                death_count += 1
+                play1_4(death_count)
+
+        player.draw(SCREEN)
+        userInput = pygame.key.get_pressed()
+        player.update(userInput)
+        score()
+        pygame.display.update()
+        clock.tick(50)
+
+
+def play1_4(death_count):
+    global points
+    run = True
+    while run:
+        SCREEN.blit(BG1_4, (0, 0))
+        SCREEN.blit(GROUND1_4, (0, 640))
+        font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+
+        if death_count == 0:
+            text = font.render("Press any Key to Start", True, (0, 0, 0))
+        elif death_count > 0:
+            text = font.render("Press any Key to Restart", True, (0, 0, 0))
+            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
+            scoreRect = score.get_rect()
+            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(score, scoreRect)
+        textRect = text.get_rect()
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        SCREEN.blit(text, textRect)
+        SCREEN.blit(RUNNING[0], (80, 500))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+                break
+            if event.type == pygame.KEYDOWN:
+                main1_4()
+
+play1_1(death_count=0)
