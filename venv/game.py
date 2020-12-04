@@ -26,15 +26,19 @@ PRESENT = [pygame.image.load('../img/gift.png')]
 SNOWMAN = [pygame.image.load('../img/snowman.png')]
 WINE = [pygame.image.load('../img/Wine.png')]
 CART = [pygame.image.load('../img/Cart.png')]
+HAT = [pygame.image.load('../img/Hat.png')]
+WATERMELON = [pygame.image.load('../img/Watermelon.png')]
 
 UMBRELLA = [pygame.image.load('../img/umbrella.png')]
 SANTA = [pygame.image.load('../img/Santa.png')]
 EYE = [pygame.image.load('../img/Eye.png')]
+PIECE = [pygame.image.load('../img/WatermelonPiece.png')]
 
 GROUND1_1 = pygame.image.load('../img/stage1_1_ground.png')
 GROUND1_2 = pygame.image.load('../img/stage1_2_ground.png')
 GROUND1_3 = pygame.image.load('../img/stage1_3_ground.png')
 GROUND1_4 = pygame.image.load('../img/stage1_4_ground.png')
+
 ringImg = pygame.image.load('../img/ring.png')
 
 BG1_1 = pygame.image.load('../img/stage1_1_bg.png')
@@ -574,25 +578,25 @@ def play1_3(death_count):
             if event.type == pygame.KEYDOWN:
                 main1_3()
 
-class Wine(Obstacle):
+class Hat(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
         self.rect.y = 575
 
 
-class Cart(Obstacle):
+class Watermelon(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
         self.rect.y = 530
 
 
-class Eye(Obstacle):
+class Piece(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 500
+        self.rect.y = 420
         self.index = 0
 
     def draw(self, SCREEN):
@@ -662,11 +666,11 @@ def main1_4():
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
-                obstacles.append(Wine(WINE))
+                obstacles.append(Hat(HAT))
             elif random.randint(0, 2) == 1:
-                obstacles.append(Cart(CART))
+                obstacles.append(Watermelon(WATERMELON))
             elif random.randint(0, 2) == 2:
-                obstacles.append(Eye(EYE))
+                obstacles.append(Piece(PIECE))
 
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
@@ -714,4 +718,4 @@ def play1_4(death_count):
             if event.type == pygame.KEYDOWN:
                 main1_4()
 
-# play1_1(death_count=0)
+play1_1(death_count=0)
