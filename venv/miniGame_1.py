@@ -162,5 +162,3 @@ def oneMoreTime():
 
 def goNext():
     pass
-
-play()

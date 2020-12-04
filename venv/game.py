@@ -238,7 +238,7 @@ def main1_1():
         textRect.center = (900, 40)
         #SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_2(death_count=0)
 
     def background():
@@ -305,16 +305,15 @@ def play1_1(death_count):
         font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
         font2 = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
 
-        if alphaBoo:
-            STAGE1.set_alpha(i)
-            SCREEN.blit(STAGE1, (0, 0))
-            pygame.time.delay(20)
-            i += 20
-            if i == 501:
-                i = 0
-                alphaBoo = False
-
         if death_count == 0:
+            if alphaBoo:
+                STAGE1.set_alpha(i)
+                SCREEN.blit(STAGE1, (0, 0))
+                pygame.time.delay(20)
+                i += 20
+                if i == 501:
+                    i = 0
+                    alphaBoo = False
             if alphaBoo == False:
                 INFO1_1.set_alpha(i)
                 SCREEN.blit(INFO1_1, (0, 0))
@@ -397,7 +396,7 @@ def main1_2():
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_3(death_count=0)
 
     def background():
@@ -473,7 +472,7 @@ def play1_2(death_count):
         elif death_count > 0:
             text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
             text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
-            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_2)
             textRect = text.get_rect()
             textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
             textRect2 = text2.get_rect()
@@ -545,7 +544,7 @@ def main1_3():
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_4(death_count=0)
 
     def background():
@@ -621,7 +620,7 @@ def play1_3(death_count):
         elif death_count > 0:
             text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
             text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
-            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_3)
             textRect = text.get_rect()
             textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
             textRect2 = text2.get_rect()
@@ -692,7 +691,7 @@ def main1_4():
         textRect = text.get_rect()
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
-        if points == 100:
+        if points == 500:
             miniGame()
 
     def background():
@@ -768,7 +767,7 @@ def play1_4(death_count):
         elif death_count > 0:
             text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
             text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
-            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_4)
             textRect = text.get_rect()
             textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
             textRect2 = text2.get_rect()
