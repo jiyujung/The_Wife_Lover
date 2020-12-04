@@ -115,5 +115,3 @@ def play():
 
         pygame.display.update()
         clock.tick(FPS)
-
-play()

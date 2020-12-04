@@ -3,6 +3,7 @@ import os
 import random
 import sys
 import sqlite3
+import miniGame_1
 
 conn = sqlite3.connect("load.db")
 
@@ -633,7 +634,7 @@ def main1_4():
         # SCREEN.blit(text, textRect)
 
         if points == 500:
-            play1_4(death_count=0)
+            miniGame()
 
     def background():
         global x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg
@@ -717,5 +718,8 @@ def play1_4(death_count):
                 break
             if event.type == pygame.KEYDOWN:
                 main1_4()
+
+def miniGame():
+    miniGame_1.play()
 
 play1_1(death_count=0)
