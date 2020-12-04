@@ -2,7 +2,11 @@ import pygame
 import sys
 import time
 import start
-import load
+import sqlite3
+import game
+
+conn = sqlite3.connect("load.db")
+cur = conn.cursor()
 
 pygame.init()
 
@@ -24,10 +28,26 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
 def starter():
+    cur.execute('INSERT INTO load VALUES (0, 0)')
     start.main()
 
 def loader():
-    load.main()
+    cur.execute('SELECT * from load')
+    bigStage = cur.fetchone[0]
+    smallStage = cur.fetchone[1]
+    loader_2(bigStage, smallStage)
+
+def loader_2(b, s):
+    if b == 0 and s == 0:
+        start.main()
+    elif b == 1 and s == 1:
+        game.play1_1()
+    elif b == 1 and s == 2:
+        game.play1_2()
+    elif b == 1 and s == 3:
+        game.play1_3()
+    else:
+        print("DB error")
 
 pygame.display.set_caption("The Wife Lover")
 startImg = pygame.image.load('../img/start.gif')
