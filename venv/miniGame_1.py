@@ -1,5 +1,7 @@
 import pygame
 import sys
+import time
+import start
 
 pygame.init()
 
@@ -20,6 +22,9 @@ INFO1_MINI = pygame.image.load('../img/stage1-mini.png')
 INFO1_MINI.convert()
 INFO1_HELP = pygame.image.load('../img/minigame_help.png')
 INFO1_HELP.convert()
+
+nextImg = pygame.image.load("../img/nextBtn_before.png")
+nextImg_over = pygame.image.load("../img/nextBtn_after.png")
 
 class Button:
     def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
@@ -85,10 +90,9 @@ class ArrowSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-arrow = ArrowSprite((141, 300))
-arrow_group = pygame.sprite.RenderPlain(arrow)
-
 def play():
+    arrow = ArrowSprite((141, 300))
+    arrow_group = pygame.sprite.RenderPlain(arrow)
     i = 1
     j = 1
     alphaBoo = True
@@ -115,19 +119,23 @@ def play():
             pass
         elif arrow.result == "None":
             screen.blit(NoneImg, (0, 0))
+            mainBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, gomain)
         elif arrow.result == "Bad":
             screen.blit(BadImg, (0, 0))
+            mtBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, oneMoreTime)
         elif arrow.result == "Good":
             screen.blit(GoodImg, (0, 0))
+            mtBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, oneMoreTime)
         elif arrow.result == "Perfect":
             screen.blit(PerfectImg, (0, 0))
+            ntBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, goNext)
 
         if alphaBoo:
             INFO1_MINI.set_alpha(i)
             screen.blit(INFO1_MINI, (0, 0))
             pygame.time.delay(20)
             i += 20
-            if i == 501:
+            if i == 301:
                 i = 0
                 alphaBoo = False
 
@@ -144,4 +152,15 @@ def play():
         pygame.display.update()
         clock.tick(FPS)
 
-# play()
+def gomain():
+    import main
+    main.mainmenu()
+    # start.main()
+
+def oneMoreTime():
+    play()
+
+def goNext():
+    pass
+
+play()
