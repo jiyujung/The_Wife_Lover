@@ -1,5 +1,7 @@
 import pygame
 import sys
+import time
+import start
 
 pygame.init()
 
@@ -15,6 +17,14 @@ NoneImg = pygame.image.load('../img/NoneImg.png')
 BadImg = pygame.image.load('../img/BadImg.png')
 GoodImg = pygame.image.load('../img/GoodImg.png')
 PerfectImg = pygame.image.load('../img/PerfectImg.png')
+
+INFO1_MINI = pygame.image.load('../img/stage1-mini.png')
+INFO1_MINI.convert()
+INFO1_HELP = pygame.image.load('../img/minigame_help.png')
+INFO1_HELP.convert()
+
+nextImg = pygame.image.load("../img/nextBtn_before.png")
+nextImg_over = pygame.image.load("../img/nextBtn_after.png")
 
 class Button:
     def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
@@ -80,38 +90,77 @@ class ArrowSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-arrow = ArrowSprite((141, 300))
-arrow_group = pygame.sprite.RenderPlain(arrow)
-score = 0
-
 def play():
+    arrow = ArrowSprite((141, 300))
+    arrow_group = pygame.sprite.RenderPlain(arrow)
+    i = 1
+    j = 1
+    alphaBoo = True
+    alphaBoo2 = True
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
                 break
-
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_DOWN:
                     arrow.pressedSpace = True
 
         event = pygame.event.poll()
+
         screen.blit(bgImg, (0, 0))
         screen.blit(barImg, (160, 350))
 
         arrow_group.update()
         arrow_group.draw(screen)
+
         if arrow.result == "":
             pass
         elif arrow.result == "None":
             screen.blit(NoneImg, (0, 0))
+            mainBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, gomain)
         elif arrow.result == "Bad":
             screen.blit(BadImg, (0, 0))
+            mtBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, oneMoreTime)
         elif arrow.result == "Good":
             screen.blit(GoodImg, (0, 0))
+            mtBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, oneMoreTime)
         elif arrow.result == "Perfect":
             screen.blit(PerfectImg, (0, 0))
+            ntBtn = Button(nextImg, 415, 410, 155, 35, nextImg_over, 415, 410, goNext)
+
+        if alphaBoo:
+            INFO1_MINI.set_alpha(i)
+            screen.blit(INFO1_MINI, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 301:
+                i = 0
+                alphaBoo = False
+
+        if alphaBoo == False:
+            if alphaBoo2:
+                INFO1_HELP.set_alpha(j)
+                screen.blit(INFO1_HELP, (0, 0))
+                pygame.time.delay(20)
+                j += 20
+                if j == 501:
+                    j = 0
+                    alphaBoo2 = False
 
         pygame.display.update()
         clock.tick(FPS)
+
+def gomain():
+    import main
+    main.mainmenu()
+    # start.main()
+
+def oneMoreTime():
+    play()
+
+def goNext():
+    pass
+
+play()
