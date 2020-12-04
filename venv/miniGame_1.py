@@ -155,10 +155,10 @@ def play():
 def gomain():
     import main
     main.mainmenu()
-    # start.main()
 
 def oneMoreTime():
     play()
 
 def goNext():
-    pass
+    import start2
+    start2.main()
