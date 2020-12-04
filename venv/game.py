@@ -3,8 +3,10 @@ import os
 import random
 import sys
 import sqlite3
+import time
 
 conn = sqlite3.connect("load.db")
+cur = conn.cursor()
 
 pygame.init()
 
@@ -174,6 +176,17 @@ class Umbrella(Obstacle):
         SCREEN.blit(self.image[0], self.rect)
         self.index += 1
 
+def saver1_1():
+    cur.execute('INSERT INTO load VALUES (1, 1)')
+    conn.close()
+
+def saver1_2():
+    cur.execute('INSERT INTO load VALUES (1, 2)')
+    conn.close()
+
+def saver1_3():
+    cur.execute('INSERT INTO load VALUES (1, 3)')
+    conn.close()
 
 def main1_1():
     global game_speed, x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg, points, obstacles
@@ -222,9 +235,6 @@ def main1_1():
         x_pos_ground -= game_speed
         x_pos_bg -= game_speed
 
-    def saver():
-        pass
-
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -235,7 +245,7 @@ def main1_1():
         background()
         SCREEN.blit(LOGO1_1, (600, 20))
         SCREEN.blit(STATUS1_1, (20, 20))
-        pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 900, 20, saver)
+        pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 900, 20, saver1_1)
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:

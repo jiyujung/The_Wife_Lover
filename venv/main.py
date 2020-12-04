@@ -29,12 +29,14 @@ clock = pygame.time.Clock()
 
 def starter():
     cur.execute('INSERT INTO load VALUES (0, 0)')
+    conn.close()
     start.main()
 
 def loader():
-    cur.execute('SELECT * from load')
-    bigStage = cur.fetchone[0]
-    smallStage = cur.fetchone[1]
+    row = cur.execute('SELECT * from load').fetchone()
+    bigStage = row[0]
+    smallStage = row[1]
+    conn.close()
     loader_2(bigStage, smallStage)
 
 def loader_2(b, s):
