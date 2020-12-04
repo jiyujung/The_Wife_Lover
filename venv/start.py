@@ -44,7 +44,7 @@ class Button:
 
 def main():
     text1 = font1.render("와이프", True, (255, 255, 255))
-    text2 = font2.render("수박 화채, 수박 주스, 수박바.... 다 먹고 싶은데 어떡하지?", True, (255, 255, 255))
+    text2 = font2.render("왜 갑자기 수박이 먹고 싶지?", True, (255, 255, 255))
 
     while True:
         for event in pygame.event.get():
@@ -85,7 +85,7 @@ def next1():
 
 def next2():
     text5 = font1.render("와이프", True, (255, 255, 255))
-    text6 = font2.render("어... 너무 먹고 싶어", True, (255, 255, 255))
+    text6 = font2.render("응... 신선한 수박이 먹고 싶네?", True, (255, 255, 255))
 
     while True:
         for event in pygame.event.get():
@@ -106,7 +106,7 @@ def next2():
 
 def next3():
     text7 = font1.render("정훈쌤", True, (255, 255, 255))
-    text8 = font2.render("기다려", True, (255, 255, 255))
+    text8 = font2.render("지금 신선한 수박 구하려면 호주까지는 가야 할걸?", True, (255, 255, 255))
 
     while True:
         for event in pygame.event.get():
@@ -119,8 +119,29 @@ def next3():
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_big, (680, 326))
             screen.blit(character_wife_small, (0, 238))
-            screen.blit(text7, (320, 590))
-            screen.blit(text8, (320, 640))
+            screen.blit(text7, (120, 590))
+            screen.blit(text8, (120, 640))
+            nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next4)
+            pygame.display.update()
+            event = pygame.event.poll()
+
+def next4():
+    text9 = font1.render("와이프", True, (255, 255, 255))
+    text10 = font2.render("....ㅋ", True, (255, 255, 255))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                break
+            screen.blit(background_image, (0, 0))
+            event = pygame.event.poll()
+            pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
+            screen.blit(character_jh_small, (750, 238))
+            screen.blit(character_wife_big, (0, 326))
+            screen.blit(text9, (320, 590))
+            screen.blit(text10, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, gamer)
             pygame.display.update()
             event = pygame.event.poll()
