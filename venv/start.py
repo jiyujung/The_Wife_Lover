@@ -147,4 +147,4 @@ def next4():
             event = pygame.event.poll()
 
 def gamer():
-    game.play(death_count=0)
+    game.play1_1(death_count=0)
