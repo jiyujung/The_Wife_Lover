@@ -51,6 +51,14 @@ def loader_2(b, s):
         game.play1_3(0)
     elif b == 1 and s == 4:
         game.play1_4(0)
+    elif b == 2 and s == 1:
+        game2.play2_1(0)
+    elif b == 2 and s == 2:
+        game2.play2_2(0)
+    elif b == 2 and s == 3:
+        game2.play2_3(0)
+    elif b == 2 and s == 4:
+        game2.play2_4(0)
     else:
         print("DB error")
 
