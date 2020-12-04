@@ -694,4 +694,4 @@ def play1_4(death_count):
             if event.type == pygame.KEYDOWN:
                 main1_4()
 
-play1_1(death_count=0)
+# play1_1(death_count=0)
