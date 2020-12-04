@@ -49,6 +49,18 @@ BG1_2 = pygame.image.load('../img/stage1_2_bg.png')
 BG1_3 = pygame.image.load('../img/stage1_3_bg.png')
 BG1_4 = pygame.image.load('../img/stage1_4_bg.png')
 
+INFO1_1 = pygame.image.load('../img/stage1-1.png')
+INFO1_1.convert()
+INFO1_2 = pygame.image.load('../img/stage1-2.png')
+INFO1_2.convert()
+INFO1_3 = pygame.image.load('../img/stage1-3.png')
+INFO1_3.convert()
+INFO1_4 = pygame.image.load('../img/stage1-4.png')
+INFO1_4.convert()
+
+STAGE1 = pygame.image.load('../img/stage1.png')
+STAGE1.convert()
+
 LOGO1_1 = pygame.image.load('../img/stage1_1_logo.png')
 LOGO1_2 = pygame.image.load('../img/stage1_2_logo.png')
 LOGO1_3 = pygame.image.load('../img/stage1_3_logo.png')
@@ -284,25 +296,43 @@ def main1_1():
 
 def play1_1(death_count):
     global points
+    i = 1
     run = True
+    alphaBoo = True
     while run:
         SCREEN.blit(BG1_1, (0, 0))
         SCREEN.blit(GROUND1_1, (0, 640))
         font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+        font2 = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
+
+        if alphaBoo:
+            STAGE1.set_alpha(i)
+            SCREEN.blit(STAGE1, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 501:
+                i = 0
+                alphaBoo = False
 
         if death_count == 0:
-            text = font.render("Press any Key", True, (0, 0, 0))
+            if alphaBoo == False:
+                INFO1_1.set_alpha(i)
+                SCREEN.blit(INFO1_1, (0, 0))
+                pygame.time.delay(20)
+                i += 20
+                if i == 255:
+                    i = 1
         elif death_count > 0:
-            text = font.render("Press any Key to Restart", True, (0, 0, 0))
-            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
-            scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            SCREEN.blit(score, scoreRect)
+            text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
+            text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
             pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
-        textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (80, 500))
+            textRect = text.get_rect()
+            textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            textRect2 = text2.get_rect()
+            textRect2.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(text, textRect)
+            SCREEN.blit(text2, textRect2)
+            SCREEN.blit(RUNNING[0], (80, 500))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -425,25 +455,32 @@ def main1_2():
 
 def play1_2(death_count):
     global points
+    i = 1
     run = True
     while run:
         SCREEN.blit(BG1_2, (0, 0))
         SCREEN.blit(GROUND1_2, (0, 640))
         font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+        font2 = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
 
         if death_count == 0:
-            text = font.render("Press any Key to Start", True, (0, 0, 0))
+            INFO1_2.set_alpha(i)
+            SCREEN.blit(INFO1_2, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 255:
+                i = 1
         elif death_count > 0:
-            text = font.render("Press any Key to Restart", True, (0, 0, 0))
-            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
-            scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            SCREEN.blit(score, scoreRect)
-            pauseBtn_2 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_2)
-        textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (80, 500))
+            text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
+            text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            textRect = text.get_rect()
+            textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            textRect2 = text2.get_rect()
+            textRect2.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(text, textRect)
+            SCREEN.blit(text2, textRect2)
+            SCREEN.blit(RUNNING[0], (80, 500))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -566,25 +603,32 @@ def main1_3():
 
 def play1_3(death_count):
     global points
+    i = 1
     run = True
     while run:
         SCREEN.blit(BG1_3, (0, 0))
         SCREEN.blit(GROUND1_3, (0, 640))
         font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+        font2 = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
 
         if death_count == 0:
-            text = font.render("Press any Key to Start", True, (0, 0, 0))
+            INFO1_3.set_alpha(i)
+            SCREEN.blit(INFO1_3, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 255:
+                i = 1
         elif death_count > 0:
-            text = font.render("Press any Key to Restart", True, (0, 0, 0))
-            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
-            scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            SCREEN.blit(score, scoreRect)
-            pauseBtn_3 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_3)
-        textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (80, 500))
+            text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
+            text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            textRect = text.get_rect()
+            textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            textRect2 = text2.get_rect()
+            textRect2.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(text, textRect)
+            SCREEN.blit(text2, textRect2)
+            SCREEN.blit(RUNNING[0], (80, 500))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -648,8 +692,7 @@ def main1_4():
         textRect = text.get_rect()
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
-
-        if points == 500:
+        if points == 100:
             miniGame()
 
     def background():
@@ -707,25 +750,32 @@ def main1_4():
 
 def play1_4(death_count):
     global points
+    i = 1
     run = True
     while run:
         SCREEN.blit(BG1_4, (0, 0))
         SCREEN.blit(GROUND1_4, (0, 640))
         font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+        font2 = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
 
         if death_count == 0:
-            text = font.render("Press any Key to Start", True, (0, 0, 0))
+            INFO1_4.set_alpha(i)
+            SCREEN.blit(INFO1_4, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 255:
+                i = 1
         elif death_count > 0:
-            text = font.render("Press any Key to Restart", True, (0, 0, 0))
-            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
-            scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            SCREEN.blit(score, scoreRect)
-            pauseBtn_4 = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_4)
-        textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (80, 500))
+            text = font.render("다시 시작하려면 아무 키나 누르세요", True, (0, 0, 0))
+            text2 = font.render("(반지를 눌러 저장해 보세요)", True, (0, 0, 0))
+            pauseBtn = Button(ringImg, 930, 10, 65, 65, ringImg, 930, 10, saver1_1)
+            textRect = text.get_rect()
+            textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            textRect2 = text2.get_rect()
+            textRect2.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(text, textRect)
+            SCREEN.blit(text2, textRect2)
+            SCREEN.blit(RUNNING[0], (80, 500))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -739,4 +789,4 @@ def play1_4(death_count):
 def miniGame():
     miniGame_1.play()
 
-play1_1(death_count=0)
+# play1_1(death_count=0)
