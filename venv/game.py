@@ -19,12 +19,20 @@ SLIDE = [pygame.image.load('../img/jh_slide.png')]
 
 SMALL_BOX = [pygame.image.load('../img/box.png')]
 LARGE_BOX = [pygame.image.load('../img/bigBox.png')]
+PRESENT = [pygame.image.load('../img/gift.png')]
+SNOWMAN = [pygame.image.load('../img/snowman.png')]
 
 UMBRELLA = [pygame.image.load('../img/umbrella.png')]
+SANTA = [pygame.image.load('../img/Santa.png')]
 
 GROUND = pygame.image.load('../img/ground.png')
+GROUND2 = pygame.image.load('../img/stage2_ground.png')
 BG = pygame.image.load('../img/stage1_bg.png')
+BG2 = pygame.image.load('../img/stage2_bg.png')
 LOGO = pygame.image.load('../img/stage1_logo.png')
+LOGO2 = pygame.image.load('../img/stage2_logo.png')
+
+STATUS = pygame.image.load('../img/Status.png')
 
 class Jh:
     X_POS = 80
@@ -168,6 +176,9 @@ def main():
         textRect.center = (900, 40)
         #SCREEN.blit(text, textRect)
 
+        if points == 100:
+            play2(death_count=0)
+
     def background():
         global x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg
         y_pos_ground = 645
@@ -194,7 +205,8 @@ def main():
                 sys.exit()
                 break
         background()
-        SCREEN.blit(LOGO, (600, 30))
+        SCREEN.blit(LOGO, (600, 20))
+        SCREEN.blit(STATUS, (20, 20))
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
@@ -208,7 +220,7 @@ def main():
             obstacle.draw(SCREEN)
             obstacle.update()
             if player.jh_rect.colliderect(obstacle.rect):
-                pygame.time.delay(2000)
+                pygame.time.delay(1000)
                 death_count += 1
                 play(death_count)
 
@@ -250,5 +262,144 @@ def play(death_count):
             if event.type == pygame.KEYDOWN:
                 main()
 
+class Present(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 590
+
+
+class Snowman(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 495
+
+
+class Santa(Obstacle):
+    def __init__(self, image):
+        self.type = 0
+        super().__init__(image, self.type)
+        self.rect.y = 470
+        self.index = 0
+
+    def draw(self, SCREEN):
+        if self.index >= 9:
+            self.index = 0
+        SCREEN.blit(self.image[0], self.rect)
+        self.index += 1
+
+
+def main2():
+    global game_speed, x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg, points, obstacles
+    run = True
+    clock = pygame.time.Clock()
+    player = Jh()
+    game_speed = 20
+    x_pos_ground = 0
+    y_pos_ground = 380
+    x_pos_bg = 0
+    y_pos_bg = 0
+    points = 0
+    font = pygame.font.Font('NotoSansCJKkr-Black.otf', 20)
+    obstacles = []
+    death_count = 0
+
+    def score():
+        global points, game_speed
+        points += 1
+        if points % 100 == 0:
+            game_speed += 1
+
+        text = font.render("Points: " + str(points), True, (0, 0, 0))
+        textRect = text.get_rect()
+        textRect.center = (900, 40)
+        # SCREEN.blit(text, textRect)
+
+        if points == 500:
+            play2(death_count=0)
+
+    def background():
+        global x_pos_ground, y_pos_ground, x_pos_bg, y_pos_bg
+        y_pos_ground = 645
+        y_pos_bg = 0
+        image_width = GROUND2.get_width()
+        SCREEN.blit(BG2, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG2, (image_width + x_pos_bg, y_pos_bg))
+        SCREEN.blit(GROUND2, (x_pos_ground, y_pos_ground))
+        SCREEN.blit(GROUND2, (image_width + x_pos_ground, y_pos_ground))
+        if x_pos_bg <= -image_width:
+            SCREEN.blit(BG2, (image_width + x_pos_bg, y_pos_bg))
+            x_pos_bg = 0
+        if x_pos_ground <= -image_width:
+            SCREEN.blit(GROUND2, (image_width + x_pos_ground, y_pos_ground))
+            x_pos_ground = 0
+        x_pos_ground -= game_speed
+        x_pos_bg -= game_speed
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+                break
+        background()
+        SCREEN.blit(LOGO2, (600, 20))
+        SCREEN.blit(STATUS, (20, 20))
+
+        if len(obstacles) == 0:
+            if random.randint(0, 2) == 0:
+                obstacles.append(Present(PRESENT))
+            elif random.randint(0, 2) == 1:
+                obstacles.append(Snowman(SNOWMAN))
+            elif random.randint(0, 2) == 2:
+                obstacles.append(Santa(SANTA))
+
+        for obstacle in obstacles:
+            obstacle.draw(SCREEN)
+            obstacle.update()
+            if player.jh_rect.colliderect(obstacle.rect):
+                pygame.time.delay(1000)
+                death_count += 1
+                play2(death_count)
+
+        player.draw(SCREEN)
+        userInput = pygame.key.get_pressed()
+        player.update(userInput)
+        score()
+        pygame.display.update()
+        clock.tick(50)
+
+
+def play2(death_count):
+    global points
+    run = True
+    while run:
+        SCREEN.blit(BG2, (0, 0))
+        SCREEN.blit(GROUND2, (0, 640))
+        font = pygame.font.Font('NotoSansCJKkr-Black.otf', 30)
+
+        if death_count == 0:
+            text = font.render("Press any Key to Start", True, (0, 0, 0))
+        elif death_count > 0:
+            text = font.render("Press any Key to Restart", True, (0, 0, 0))
+            score = font.render("Your Score: " + str(points), True, (0, 0, 0))
+            scoreRect = score.get_rect()
+            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            SCREEN.blit(score, scoreRect)
+        textRect = text.get_rect()
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        SCREEN.blit(text, textRect)
+        SCREEN.blit(RUNNING[0], (80, 500))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+                break
+            if event.type == pygame.KEYDOWN:
+                main2()
 
 # menu(death_count=0)
