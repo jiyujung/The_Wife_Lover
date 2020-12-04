@@ -59,7 +59,7 @@ startImg = pygame.image.load('../img/start.gif')
 loadImg = pygame.image.load('../img/load.gif')
 startImg_over = pygame.image.load('../img/start_over.gif')
 loadImg_over = pygame.image.load('../img/load_over.gif')
-background_image = pygame.image.load('../img/mainBg.gif')
+background_image = pygame.image.load('../img/mainBg.png')
 programIcon = pygame.image.load('../img/icon.png')
 
 def mainmenu():

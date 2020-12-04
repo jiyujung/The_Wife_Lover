@@ -226,7 +226,7 @@ def main1_1():
         textRect.center = (900, 40)
         #SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_2(death_count=0)
 
     def background():
@@ -367,7 +367,7 @@ def main1_2():
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_3(death_count=0)
 
     def background():
@@ -508,7 +508,7 @@ def main1_3():
         textRect.center = (900, 40)
         # SCREEN.blit(text, textRect)
 
-        if points == 100:
+        if points == 500:
             play1_4(death_count=0)
 
     def background():
@@ -739,4 +739,4 @@ def play1_4(death_count):
 def miniGame():
     miniGame_1.play()
 
-play1_1(death_count=0)
+# play1_1(death_count=0)
