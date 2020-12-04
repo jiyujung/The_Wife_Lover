@@ -16,6 +16,9 @@ BadImg = pygame.image.load('../img/BadImg.png')
 GoodImg = pygame.image.load('../img/GoodImg.png')
 PerfectImg = pygame.image.load('../img/PerfectImg.png')
 
+INFO1_MINI = pygame.image.load('../img/stage1-mini.png')
+INFO1_MINI.convert()
+
 class Button:
     def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
         mouse = pygame.mouse.get_pos()
@@ -82,26 +85,39 @@ class ArrowSprite(pygame.sprite.Sprite):
 
 arrow = ArrowSprite((141, 300))
 arrow_group = pygame.sprite.RenderPlain(arrow)
-score = 0
 
 def play():
+    i = 1
+    alphaBoo = True
     while True:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
                 break
-
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_DOWN:
                     arrow.pressedSpace = True
 
+
         event = pygame.event.poll()
+
         screen.blit(bgImg, (0, 0))
         screen.blit(barImg, (160, 350))
 
         arrow_group.update()
         arrow_group.draw(screen)
+
+        if alphaBoo:
+            INFO1_MINI.set_alpha(i)
+            screen.blit(INFO1_MINI, (0, 0))
+            pygame.time.delay(20)
+            i += 20
+            if i == 501:
+                i = 0
+                alphaBoo = False
+
         if arrow.result == "":
             pass
         elif arrow.result == "None":
