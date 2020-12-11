@@ -4,6 +4,7 @@ import time
 import start
 import sqlite3
 import game
+import game2
 
 conn = sqlite3.connect("load.db")
 cur = conn.cursor()

@@ -24,4 +24,4 @@ Pygame 라이브러리를 이용하여 만든 픽셀 게임입니다.
 
 ## Acknowledgments / 감사의 말
 
-* with https://github.com/jiyujung
+* with https://github.com/6h15m
