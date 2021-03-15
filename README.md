@@ -19,14 +19,14 @@ Pygame 라이브러리를 이용하여 만든 픽셀 게임입니다.
  
 ## License / 라이센스
 
-교내에서 진행하는 Python 수행평가의 일환으로 만들어진 프로그램이므로, 재배포/수정은 삼가해 주시기 바랍니다. 
+- 교내에서 진행하는 Python 수행평가의 일환으로 만들어진 프로그램이므로, 재배포/수정은 삼가해 주시기 바랍니다. 
 
 
 ## Download / 다운로드 링크
 
-https://drive.google.com/drive/folders/1PsmM-pMeRLYAfah9kW_-vafqWLGbJ1kF?usp=sharing
+- https://drive.google.com/drive/folders/1PsmM-pMeRLYAfah9kW_-vafqWLGbJ1kF?usp=sharing
 
 
 ## Acknowledgments / 감사의 말
 
-* with https://github.com/6h15m
+- with https://github.com/6h15m
