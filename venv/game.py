@@ -21,7 +21,7 @@ RUNNING = [pygame.image.load('../img/jh_run1.png'), pygame.image.load('../img/jh
            pygame.image.load('../img/jh_run5.png'), pygame.image.load('../img/jh_run6.png'),
            pygame.image.load('../img/jh_run7.png'), pygame.image.load('../img/jh_run8.png')]
 JUMPING = pygame.image.load('../img/jh_run7.png')
-SLIDE = [pygame.image.load('../img/jh_slide.png')]
+SLIDE = pygame.image.load('../img/jh_slide.png')
 
 SMALL_BOX = [pygame.image.load('../img/box.png')]
 LARGE_BOX = [pygame.image.load('../img/bigBox.png')]
@@ -50,16 +50,11 @@ BG1_3 = pygame.image.load('../img/stage1_3_bg.png')
 BG1_4 = pygame.image.load('../img/stage1_4_bg.png')
 
 INFO1_1 = pygame.image.load('../img/stage1-1.png')
-INFO1_1.convert()
 INFO1_2 = pygame.image.load('../img/stage1-2.png')
-INFO1_2.convert()
 INFO1_3 = pygame.image.load('../img/stage1-3.png')
-INFO1_3.convert()
 INFO1_4 = pygame.image.load('../img/stage1-4.png')
-INFO1_4.convert()
 
 STAGE1 = pygame.image.load('../img/stage1.png')
-STAGE1.convert()
 
 LOGO1_1 = pygame.image.load('../img/stage1_1_logo.png')
 LOGO1_2 = pygame.image.load('../img/stage1_2_logo.png')
@@ -85,7 +80,7 @@ class Jh:
     X_POS = 80
     Y_POS = 500
     Y_POS_SLIDE = 600
-    JUMP_VEL = 8.5
+    JUMP_VEL = 8.5      # 점프의 높이
 
     def __init__(self):
         self.slide_img = SLIDE
@@ -111,6 +106,7 @@ class Jh:
         if self.jh_jump:
             self.jump()
 
+        # step_index는 프레임을 조절하기 위한 변수
         if self.step_index >= 10:
             self.step_index = 0
 
@@ -128,13 +124,14 @@ class Jh:
             self.jh_jump = False
 
     def slide(self):
-        self.image = self.slide_img[0]
+        self.image = self.slide_img
         self.jh_rect = self.image.get_rect()
         self.jh_rect.x = self.X_POS
         self.jh_rect.y = self.Y_POS_SLIDE
         self.step_index += 1
 
     def run(self):
+        # 8장의 스프라이트를 1초에 10번 보여주도록 함
         self.image = self.run_img[self.step_index // 2]
         self.jh_rect = self.image.get_rect()
         self.jh_rect.x = self.X_POS

@@ -9,7 +9,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 750
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
-pygame.key.set_repeat(1, 1)
+# pygame.key.set_repeat(1, 1)
 
 # 배경 이미지 불러오기
 background_image = pygame.image.load('../img/TutorialBg.png')
@@ -53,7 +53,8 @@ def main():
                 sys.exit()
                 break
             screen.blit(background_image, (0, 0))
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
+            # 도형 그리기 : (화면, 색, 사각형의[x축, y축, 가로, 세로])
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_small, (750, 238))
             screen.blit(character_wife_big, (0, 326))
@@ -74,7 +75,7 @@ def next1():
                 sys.exit()
                 break
             screen.blit(background_image, (0, 0))
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_big, (680, 326))
             screen.blit(character_wife_small, (0, 238))
@@ -94,7 +95,7 @@ def next2():
                 sys.exit()
                 break
             screen.blit(background_image, (0, 0))
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_small, (750, 238))
             screen.blit(character_wife_big, (0, 326))
@@ -102,7 +103,7 @@ def next2():
             screen.blit(text6, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next3)
             pygame.display.update()
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
 
 def next3():
     text7 = font1.render("정훈쌤", True, (255, 255, 255))
@@ -115,7 +116,7 @@ def next3():
                 sys.exit()
                 break
             screen.blit(background_image, (0, 0))
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_big, (680, 326))
             screen.blit(character_wife_small, (0, 238))
@@ -123,7 +124,7 @@ def next3():
             screen.blit(text8, (120, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, next4)
             pygame.display.update()
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
 
 def next4():
     text9 = font1.render("와이프", True, (255, 255, 255))
@@ -136,7 +137,7 @@ def next4():
                 sys.exit()
                 break
             screen.blit(background_image, (0, 0))
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
             pygame.draw.rect(screen, (128, 128, 128), (0, 570, 1000, 180))
             screen.blit(character_jh_small, (750, 238))
             screen.blit(character_wife_big, (0, 326))
@@ -144,7 +145,7 @@ def next4():
             screen.blit(text10, (320, 640))
             nextBtn = Button(nextImg, 550, 700, 16, 16, nextImg_over, 550, 700, gamer)
             pygame.display.update()
-            event = pygame.event.poll()
+            # event = pygame.event.poll()
 
 def gamer():
     game.play1_1(death_count=0)

@@ -21,7 +21,7 @@ RUNNING = [pygame.image.load('../img/jh_run1.png'), pygame.image.load('../img/jh
            pygame.image.load('../img/jh_run5.png'), pygame.image.load('../img/jh_run6.png'),
            pygame.image.load('../img/jh_run7.png'), pygame.image.load('../img/jh_run8.png')]
 JUMPING = pygame.image.load('../img/jh_run7.png')
-SLIDE = [pygame.image.load('../img/jh_slide.png')]
+SLIDE = pygame.image.load('../img/jh_slide.png')
 
 PYCHARM = [pygame.image.load('../img/Pycharm.png')]
 BUG = [pygame.image.load('../img/Bug.png')]
@@ -50,16 +50,11 @@ BG2_3 = pygame.image.load('../img/stage2_3_bg.png')
 BG2_4 = pygame.image.load('../img/stage2_4_bg.png')
 
 INFO2_1 = pygame.image.load('../img/stage2-1.png')
-INFO2_1.convert()
 INFO2_2 = pygame.image.load('../img/stage2-2.png')
-INFO2_2.convert()
 INFO2_3 = pygame.image.load('../img/stage2-3.png')
-INFO2_3.convert()
 INFO2_4 = pygame.image.load('../img/stage2-4.png')
-INFO2_4.convert()
 
 STAGE2 = pygame.image.load('../img/stage2.png')
-STAGE2.convert()
 
 LOGO2_1 = pygame.image.load('../img/stage2_1_logo.png')
 LOGO2_2 = pygame.image.load('../img/stage2_2_logo.png')
@@ -128,7 +123,7 @@ class Jh:
             self.jh_jump = False
 
     def slide(self):
-        self.image = self.slide_img[0]
+        self.image = self.slide_img
         self.jh_rect = self.image.get_rect()
         self.jh_rect.x = self.X_POS
         self.jh_rect.y = self.Y_POS_SLIDE
