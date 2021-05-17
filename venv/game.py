@@ -278,6 +278,8 @@ def main1_1():
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
             obstacle.update()
+            # colliderect() 함수 : Rect()로 생성된 객체에서 사용할 수 있는 함수이며, 해당 사각형과
+            # 인자로 들어온 사각형을 비교하여 겹치면 true를 반환해주는 함수
             if player.jh_rect.colliderect(obstacle.rect):
                 pygame.time.delay(1000)
                 death_count += 1
